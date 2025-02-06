@@ -1,4 +1,4 @@
-package com.anonymous.nott
+package com.asterisk.nott
 
 import android.app.Application
 import android.content.res.Configuration

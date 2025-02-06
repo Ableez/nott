@@ -1,4 +1,4 @@
-package com.anonymous.nott
+package com.asterisk.nott
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
