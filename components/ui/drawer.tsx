@@ -20,8 +20,11 @@ import {
   BottomSheetView,
   useBottomSheetModal,
   BottomSheetModalProps,
+  BottomSheetHandle,
+  BottomSheetHandleProps,
 } from "@gorhom/bottom-sheet";
 import Button from "../button";
+import { colorScheme } from "nativewind";
 
 // Types
 type DrawerContextType = {
@@ -100,6 +103,22 @@ const Drawer = ({
     }
   });
 
+  const HandleComp = ({
+    animatedPosition,
+    animatedIndex,
+  }: BottomSheetHandleProps) => (
+    <BottomSheetHandle
+      animatedIndex={animatedIndex}
+      animatedPosition={animatedPosition}
+      style={{
+        backgroundColor: dark ? "#000" : "#fff",
+        borderTopLeftRadius: 14,
+        borderTopRightRadius: 14,
+      }}
+      indicatorStyle={{ backgroundColor: dark ? "#333" : "#000" }}
+    ></BottomSheetHandle>
+  );
+
   return (
     <DrawerContext.Provider value={contextValue}>
       {triggerContent}
@@ -113,6 +132,7 @@ const Drawer = ({
         animationConfigs={{
           duration: 310,
         }}
+        handleComponent={HandleComp}
         {...props}
       >
         <BottomSheetView style={styles.content}>
@@ -219,20 +239,22 @@ const DrawerDescription = ({ children, style }: DrawerDescriptionProps) => (
   <View style={[styles.description, style]}>{children}</View>
 );
 
+const dark = colorScheme.get() === "dark";
+
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: dark ? "#000" : "#fff",
   },
   header: {
     padding: 16,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#e5e5e5",
+    borderBottomColor: dark ? "#333" : "#e5e5e5",
   },
   footer: {
     padding: 16,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "#e5e5e5",
+    borderTopColor: dark ? "#333" : "#e5e5e5",
   },
   closeButton: {
     padding: 8,
@@ -249,7 +271,6 @@ const styles = StyleSheet.create({
   indicator: {
     width: 40,
     height: 4,
-    backgroundColor: "#e5e5e5",
     alignSelf: "center",
     marginTop: 8,
     borderRadius: 2,
